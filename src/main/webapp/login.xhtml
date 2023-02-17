@@ -4,38 +4,38 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
-
-	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
-
+	<!-- <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet> -->
+	<meta name="viewport" content="width=device-width, user-scalable=no"></meta>
 </h:head>
 
 <h:body>
 
-
-
+<div class="ui-fluid">
 	<h:form id="formLogin">
-
-<!-- 		<p:panel id="pnlGridLogin" columns="2" -->
-		<h:panelGrid column="2">
-
-			<h:outputLabel value="Usuario: " styleClass="colorText" />
-			<h:inputText id="txtUsuario" value="#{loginController.username}" required="true" requiredMessage="El usuario es requerido" />
-
-			<h:outputLabel value="Contraseña: " styleClass="colorText" />
-			<h:inputSecret id="txtPassword" value="#{loginController.password}" required="true" requiredMessage="La contraseña es requerida" />
-
-			<h:commandButton value="Entrar" action="#{loginController.ingresar}" />
-
-		</h:panelGrid>
-
-
+	
+		<p:growl id="growl" />
+ 		<p:panel id="pnlLogin" header="Inicio de Sesion" style="text-align: center"> 
+		
+			<p:graphicImage name="imgs/usuario.png" width="15%"/>
+			
+			<p:panelGrid id="pnlGridLogin" columns="2"
+						columnClasses="ui-g-12 ui-md-12,ui-g-12 ui-md-12" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid">
+	
+				<p:outputLabel value="Usuario: " styleClass="colorText" for="txtUsuario" style="float: left" />
+				<p:inputText id="txtUsuario" value="#{loginController.username}" required="true" requiredMessage="El usuario es requerido" />
+	
+				<p:outputLabel value="Contraseña: " styleClass="colorText" for="txtPassword" style="float: left" />
+				<p:password id="txtPassword" value="#{loginController.password}" required="true" requiredMessage="La contraseña es requerida" />
+	
+				<br/>
+				<p:commandButton value="Entrar" action="#{loginController.ingresar}" update="pnlGridLogin, growl" />
+	
+			</p:panelGrid>
+	     </p:panel>
 	</h:form>
-
-
+</div>
 
 </h:body>
-
-
 
 </html>

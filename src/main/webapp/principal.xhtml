@@ -1,54 +1,78 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Pantalla principal</title>
-	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="style.css" />
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
 </h:head>
 <h:body>
 
-    Bienvenido a la Pantalla Principal
+    <p:outputLabel>"Bienvenido #{sessionController.usuarioDTO.usuario} a la Pantalla Principal"</p:outputLabel>
+    <h:form>
+    <p:commandButton value="Cerrar Sesion" action="#{sessionClosedController.cerrarSesion}" />
     
-    
-    <h:dataTable id="tblEmpleados" var="empleado" value="#{principalController.empleados}" headerClass="headerTable" rowClasses="rowTable rowTableLine" >
-		<h:column>
-		
-			<f:facet name="header">Nombre</f:facet>
-			<h:outputText value="#{empleado.nombre}"></h:outputText>
+    <p:dataTable id="tblEmpleados" var="empleado" value="#{principalController.empleados}" paginator="true" rows="10" paginatorPosition="bottom"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} registros" reflow="true"
+                     rowsPerPageTemplate="5,10,{ShowAll|'All'}" >
+	<f:facet name="{Exporters}">
+        <div class="flex justify-content-between">
+            
+                <p:commandButton value="XLS" styleClass="mr-2 mb-2">
+                    <p:dataExporter type="xls" target="tblEmpleados" fileName="ReporteEmpleados"/>
+                </p:commandButton>
 
-		</h:column>
+                <p:commandButton value="XLSX" styleClass="mr-2 mb-2">
+                    <p:dataExporter type="xlsxstream" target="tblEmpleados" fileName="ReporteEmpleados"/>
+                </p:commandButton>
+
+                <p:commandButton value="PDF" styleClass="mr-2 mb-2" >
+                    <p:dataExporter type="pdf" target="tblEmpleados" fileName="ReporteEmpleados"/>
+                </p:commandButton>
+
+                <p:commandButton value="CSV" styleClass="mr-2 mb-2">
+                    <p:dataExporter type="csv" target="tblEmpleados" fileName="ReporteEmpleados" />
+                </p:commandButton>
+
+                <p:commandButton value="XML" styleClass="mr-2 mb-2">
+                    <p:dataExporter type="xml" target="tblEmpleados" fileName="ReporteEmpleados"/>
+                </p:commandButton>
+
+                <p:commandButton value="TXT" styleClass="mr-2 mb-2">
+                    <p:dataExporter type="txt" target="tblEmpleados" fileName="ReporteEmpleados" />
+                </p:commandButton>
+            </div> 
+            </f:facet> 
+	    
+		<p:column headerText="nombre" filterBy="#{empleado.nombre}" filterMatchMode="contains" sortBy="#{empleado.nombre}">
+			<h:outputText value="#{empleado.nombre}"></h:outputText>
+		</p:column>
 		
-		<h:column>
-		
-			<f:facet name="header">Primer Apellido</f:facet>
+		<p:column headerText="Primer Apellido" filterBy="#{empleado.primerAp}" filterMatchMode="contains" sortBy="#{empleado.prrimerApellido}">
 			<h:outputText value="#{empleado.primerAp}"></h:outputText>
 
-		</h:column>
+		</p:column>
 		
-		<h:column>
-		
-			<f:facet name="header">Segundo Apellido</f:facet>
+		<p:column headerText="Segundo Apellido" filterBy="#{empleado.segundoAp}" filterMatchMode="contains" sortBy="#{empleado.segundoApellido}">
 			<h:outputText value="#{empleado.segundoAp}"></h:outputText>
 
-		</h:column>
+		</p:column>
 		
-		<h:column>
-		
-			<f:facet name="header">Puesto</f:facet>
+		<p:column headerText="Puesto" filterBy="#{empleado.puesto}" filterMatchMode="contains" sortBy="#{empleado.puesto}">
 			<h:outputText value="#{empleado.puesto}"></h:outputText>
 
-		</h:column>
+		</p:column>
 		
-		<h:column>
-		
-			<f:facet name="header">Estatus</f:facet>
+		<p:column headerText="Estatus" filterBy="#{empleado.stat}" filterMatchMode="contains">
 			<h:outputText value="HABILITADO" rendered="#{empleado.stat}"></h:outputText>
 			<h:outputText value="INHABILITADO" rendered="#{!empleado.stat}"></h:outputText>
+		</p:column>
 
-		</h:column>
-
-	</h:dataTable>
+	</p:dataTable>
+</h:form>
 
 </h:body>
 

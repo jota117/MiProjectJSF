@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import entitys.Empleado;
+import lombok.Getter;
+import lombok.Setter;
 import services.EmpleadoService;
 
 @ManagedBean
@@ -14,17 +16,14 @@ import services.EmpleadoService;
 public class PrincipalController {
 
 	/**
-	 * 
 	 * Lista de empleados para la tabla
-	 *
 	 */
+	@Getter @Setter
 	private List<Empleado> empleados;
-	/**
-	 * 
-	 * SErvicio con los metodos que realizan la logica de negocio de empleados
-	 *
-	 */
 	
+	/**
+	 * SErvicio con los metodos que realizan la logica de negocio de empleados
+	 */
 	private EmpleadoService empleadoService = new EmpleadoService();
 	
 	@PostConstruct
@@ -34,30 +33,11 @@ public class PrincipalController {
 	}
 	
 	/**
-	 * 
 	 * Metodo que consulta la lista de empleados
-	 *
 	 */
 	public void consultarEmpleados() {
 		this.empleados = this.empleadoService.consultarEmpleados();
 		
-	}
-	
-
-	/**
-	 * @return the empleados
-	 */
-	public List<Empleado> getEmpleados() {
-		return empleados;
-	}
-
-	/**
-	 * @param empleados the empleados to set
-	 */
-	public void setEmpleados(List<Empleado> empleados) {
-		this.empleados = empleados;
-	}
-	
-	
+	}		
 
 }
