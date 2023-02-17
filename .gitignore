@@ -2,3 +2,5 @@
 target
 .classpath
 .project
+/.apt_generated/
+.factorypath
